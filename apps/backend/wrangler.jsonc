@@ -2,7 +2,15 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cf-sample-app-backend",
   "main": "src/index.ts",
-  "compatibility_date": "2025-11-30",
+  "compatibility_date": "2025-11-25",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "db-local",
+      "database_id": "<UUID>",
+      "migrations_dir": "drizzle",
+    },
+  ],
   "env": {
     "preview": {
       "name": "cf-sample-app-backend-preview",
@@ -14,6 +22,14 @@
           "persist": true,
         },
       },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "db-preview",
+          "database_id": "a481c1b4-7982-47e8-a4a9-c9f74be1283f",
+          "migrations_dir": "drizzle",
+        },
+      ],
     },
     "production": {
       "name": "cf-sample-app-backend-production",
@@ -25,6 +41,14 @@
           "persist": true,
         },
       },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "db-production",
+          "database_id": "30210211-52b5-4f14-857a-853aa9648298",
+          "migrations_dir": "drizzle",
+        },
+      ],
     },
   },
 }
