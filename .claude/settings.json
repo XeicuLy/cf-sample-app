@@ -1,7 +1,14 @@
 {
   "enabledMcpjsonServers": ["playwright", "context7", "serena"],
   "permissions": {
-    "allow": ["Bash(find:*)", "Bash(rg:*)", "Bash(grep:*)", "Bash(ls:*)"],
+    "allow": [
+      "Bash(find:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs"
+    ],
     "deny": [
       "Bash(git add:*)",
       "Bash(git commit:*)",

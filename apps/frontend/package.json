@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build",
-    "build:preview": "CLOUDFLARE_ENV=preview vite build",
-    "build:production": "CLOUDFLARE_ENV=production vite build",
+    "build:development": "vite build --mode development",
+    "build:preview": "CLOUDFLARE_ENV=preview vite build --mode preview",
+    "build:production": "CLOUDFLARE_ENV=production vite build --mode production",
     "serve": "vite preview",
     "test": "vitest run",
     "deploy": "pnpm run build && wrangler deploy",
