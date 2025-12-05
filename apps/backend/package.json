@@ -10,9 +10,17 @@
     "typecheck": "pnpm run cf-typegen && tsc --noEmit"
   },
   "dependencies": {
-    "hono": "4.10.7"
+    "@hono/zod-openapi": "1.1.5",
+    "better-auth": "1.4.5",
+    "drizzle-orm": "0.45.0",
+    "hono": "4.10.7",
+    "zod": "4.1.13"
   },
   "devDependencies": {
+    "@hono/swagger-ui": "0.5.2",
+    "@types/sql.js": "1.4.9",
+    "drizzle-kit": "0.31.8",
+    "sql.js": "1.13.0",
     "wrangler": "4.51.0"
   }
 }
