@@ -11,9 +11,19 @@
       "migrations_dir": "drizzle",
     },
   ],
+  "vars": {
+    "BACKEND_URL": "http://localhost:8787",
+    "FRONTEND_URL": "http://localhost:3000",
+    "crossSubDomainCookies": "localhost",
+  },
   "env": {
     "preview": {
       "name": "cf-sample-app-backend-preview",
+      "vars": {
+        "BACKEND_URL": "https://cf-sample-app-backend-preview.xeiculy-account.workers.dev",
+        "FRONTEND_URL": "https://cf-sample-app-frontend-preview.xeiculy-account.workers.dev",
+        "crossSubDomainCookies": ".xeiculy-account.workers.dev",
+      },
       "observability": {
         "logs": {
           "enabled": false,
@@ -33,6 +43,11 @@
     },
     "production": {
       "name": "cf-sample-app-backend-production",
+      "vars": {
+        "BACKEND_URL": "https://cf-sample-app-backend-production.xeiculy-account.workers.dev",
+        "FRONTEND_URL": "https://cf-sample-app-frontend-production.xeiculy-account.workers.dev",
+        "crossSubDomainCookies": ".xeiculy-account.workers.dev",
+      },
       "observability": {
         "logs": {
           "enabled": false,
