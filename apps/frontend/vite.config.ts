@@ -15,7 +15,7 @@ const config = defineConfig({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({ router: { routeFileIgnorePattern: 'hooks' } }),
     viteReact({
       babel: {
         plugins: ['babel-plugin-react-compiler'],
