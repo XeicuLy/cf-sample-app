@@ -1,9 +1,11 @@
 import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { auth } from './lib/better-auth';
+import { authMiddleware } from './middleware/auth';
 import { corsMiddleware } from './middleware/cors';
 import { apiKeyAuthMiddleware } from './middleware/secret-key';
 import { createSeedUserRouteHandler } from './routes/add-seed-user/post';
+import { helloRouteHandler } from './routes/hello/post';
 
 const app = new OpenAPIHono<{
   Bindings: CloudflareBindings;
@@ -14,7 +16,9 @@ app.use('/*', corsMiddleware);
 app.on(['GET', 'POST'], '/api/v1/auth/*', (c) => auth(c.env).handler(c.req.raw));
 
 app.use('/api/v1/secret/*', apiKeyAuthMiddleware);
-export const routes = app.route('/', createSeedUserRouteHandler);
+app.use('/api/v1/secure/*', authMiddleware);
+
+export const routes = app.route('/', createSeedUserRouteHandler).route('/', helloRouteHandler);
 
 routes
   .doc('/api', {
