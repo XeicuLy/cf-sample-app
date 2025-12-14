@@ -5,6 +5,9 @@ import { authMiddleware } from './middleware/auth';
 import { corsMiddleware } from './middleware/cors';
 import { apiKeyAuthMiddleware } from './middleware/secret-key';
 import { createSeedUserRouteHandler } from './routes/add-seed-user/post';
+import { deleteCategoryRouteHandler } from './routes/category/delete';
+import { getAllCategoriesAndProductsRouteHandler } from './routes/category/get';
+import { createCategoryRouteHandler } from './routes/category/post';
 import { helloRouteHandler } from './routes/hello/post';
 
 const app = new OpenAPIHono<{
@@ -18,7 +21,12 @@ app.on(['GET', 'POST'], '/api/v1/auth/*', (c) => auth(c.env).handler(c.req.raw))
 app.use('/api/v1/secret/*', apiKeyAuthMiddleware);
 app.use('/api/v1/secure/*', authMiddleware);
 
-export const routes = app.route('/', createSeedUserRouteHandler).route('/', helloRouteHandler);
+export const routes = app
+  .route('/', createSeedUserRouteHandler)
+  .route('/', helloRouteHandler)
+  .route('/', createCategoryRouteHandler)
+  .route('/', deleteCategoryRouteHandler)
+  .route('/', getAllCategoriesAndProductsRouteHandler);
 
 routes
   .doc('/api', {
