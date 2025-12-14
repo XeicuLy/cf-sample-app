@@ -6,7 +6,7 @@
 # 共通コマンド
 
 - `pnpm lint:fix`: プロジェクトのコードスタイルを自動修正
-- `pnpm type-check`: TypeScriptの型チェックを実行
+- `pnpm typecheck`: TypeScriptの型チェックを実行
 
 # 開発スタイル
 
@@ -24,4 +24,4 @@
 
 # ワークフロー
 
-- 変更完了後は必ず`pnpm lint:fix`と`pnpm type-check`を実行し、コードスタイルと型チェックを確認すること
+- 変更完了後は必ず`pnpm lint:fix`と`pnpm typecheck`を実行し、コードスタイルと型チェックを確認すること
