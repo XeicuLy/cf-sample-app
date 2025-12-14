@@ -34,7 +34,8 @@
     "react-hook-form": "7.68.0",
     "tailwindcss": "4.1.18",
     "vite-tsconfig-paths": "5.1.4",
-    "zod": "4.1.13"
+    "zod": "4.1.13",
+    "backend": "workspace:*"
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "0.3.12",
