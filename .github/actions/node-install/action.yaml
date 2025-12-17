@@ -9,7 +9,7 @@ inputs:
   node-version:
     description: 'The version of Node.js to use'
     required: false
-    default: 24.11.1
+    default: 24.12.0
 
 runs:
   using: 'composite'
@@ -24,6 +24,12 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: pnpm
+
+    - name: Show versions
+      shell: bash
+      run: |
+        node -v
+        pnpm -v
 
     - name: Install dependencies
       shell: bash

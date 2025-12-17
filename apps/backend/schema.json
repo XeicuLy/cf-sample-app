@@ -1,0 +1,477 @@
+{
+  "name": "faf8295811e90a21f3c0cb1e36beaa2fec92ae6da4fd72ca23a012fcaa97eb22.sqlite",
+  "tables": [
+    {
+      "name": "d1_migrations",
+      "type": "table",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "nullable": true
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "applied_at",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_d1_migrations_1",
+          "def": "UNIQUE (name)",
+          "table": "d1_migrations",
+          "columns": ["name"]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "id",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "d1_migrations",
+          "columns": ["id"]
+        },
+        {
+          "name": "sqlite_autoindex_d1_migrations_1",
+          "type": "UNIQUE",
+          "def": "UNIQUE (name)",
+          "table": "d1_migrations",
+          "columns": ["name"]
+        }
+      ],
+      "def": "CREATE TABLE d1_migrations(\n\t\tid         INTEGER PRIMARY KEY AUTOINCREMENT,\n\t\tname       TEXT UNIQUE,\n\t\tapplied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL\n)"
+    },
+    {
+      "name": "_cf_METADATA",
+      "type": "table",
+      "columns": [
+        {
+          "name": "key",
+          "type": "INTEGER",
+          "nullable": true
+        },
+        {
+          "name": "value",
+          "type": "BLOB",
+          "nullable": true
+        }
+      ],
+      "constraints": [
+        {
+          "name": "key",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (key)",
+          "table": "_cf_METADATA",
+          "columns": ["key"]
+        }
+      ],
+      "def": "CREATE TABLE _cf_METADATA (\n        key INTEGER PRIMARY KEY,\n        value BLOB\n      )"
+    },
+    {
+      "name": "account",
+      "type": "table",
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "account_id",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "provider_id",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "user_id",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "access_token",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "refresh_token",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "id_token",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "access_token_expires_at",
+          "type": "INTEGER",
+          "nullable": true
+        },
+        {
+          "name": "refresh_token_expires_at",
+          "type": "INTEGER",
+          "nullable": true
+        },
+        {
+          "name": "scope",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "password",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "cast(unixepoch('subsecond') * 1000 as integer)"
+        },
+        {
+          "name": "updated_at",
+          "type": "INTEGER",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "account_userId_idx",
+          "def": "CREATE INDEX `account_userId_idx` ON `account` (`user_id`)",
+          "table": "account",
+          "columns": ["user_id"]
+        },
+        {
+          "name": "sqlite_autoindex_account_1",
+          "def": "PRIMARY KEY (id)",
+          "table": "account",
+          "columns": ["id"]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "id",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "account",
+          "columns": ["id"]
+        },
+        {
+          "name": "- (Foreign key ID: 0)",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE NO ACTION ON DELETE CASCADE MATCH NONE",
+          "table": "account",
+          "referenced_table": "user",
+          "columns": ["user_id"],
+          "referenced_columns": ["id"]
+        },
+        {
+          "name": "sqlite_autoindex_account_1",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "account",
+          "columns": ["id"]
+        }
+      ],
+      "def": "CREATE TABLE `account` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`account_id` text NOT NULL,\n\t`provider_id` text NOT NULL,\n\t`user_id` text NOT NULL,\n\t`access_token` text,\n\t`refresh_token` text,\n\t`id_token` text,\n\t`access_token_expires_at` integer,\n\t`refresh_token_expires_at` integer,\n\t`scope` text,\n\t`password` text,\n\t`created_at` integer DEFAULT (cast(unixepoch('subsecond') * 1000 as integer)) NOT NULL,\n\t`updated_at` integer NOT NULL,\n\tFOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade\n)"
+    },
+    {
+      "name": "session",
+      "type": "table",
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "expires_at",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "token",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "cast(unixepoch('subsecond') * 1000 as integer)"
+        },
+        {
+          "name": "updated_at",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "ip_address",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "user_agent",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "user_id",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "impersonated_by",
+          "type": "TEXT",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "session_userId_idx",
+          "def": "CREATE INDEX `session_userId_idx` ON `session` (`user_id`)",
+          "table": "session",
+          "columns": ["user_id"]
+        },
+        {
+          "name": "session_token_unique",
+          "def": "CREATE UNIQUE INDEX `session_token_unique` ON `session` (`token`)",
+          "table": "session",
+          "columns": ["token"]
+        },
+        {
+          "name": "sqlite_autoindex_session_1",
+          "def": "PRIMARY KEY (id)",
+          "table": "session",
+          "columns": ["id"]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "id",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "session",
+          "columns": ["id"]
+        },
+        {
+          "name": "- (Foreign key ID: 0)",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE NO ACTION ON DELETE CASCADE MATCH NONE",
+          "table": "session",
+          "referenced_table": "user",
+          "columns": ["user_id"],
+          "referenced_columns": ["id"]
+        },
+        {
+          "name": "sqlite_autoindex_session_1",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "session",
+          "columns": ["id"]
+        }
+      ],
+      "def": "CREATE TABLE `session` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`expires_at` integer NOT NULL,\n\t`token` text NOT NULL,\n\t`created_at` integer DEFAULT (cast(unixepoch('subsecond') * 1000 as integer)) NOT NULL,\n\t`updated_at` integer NOT NULL,\n\t`ip_address` text,\n\t`user_agent` text,\n\t`user_id` text NOT NULL,\n\t`impersonated_by` text,\n\tFOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade\n)"
+    },
+    {
+      "name": "user",
+      "type": "table",
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "email",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "email_verified",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "false"
+        },
+        {
+          "name": "image",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "cast(unixepoch('subsecond') * 1000 as integer)"
+        },
+        {
+          "name": "updated_at",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "cast(unixepoch('subsecond') * 1000 as integer)"
+        },
+        {
+          "name": "role",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "banned",
+          "type": "INTEGER",
+          "nullable": true,
+          "default": "false"
+        },
+        {
+          "name": "ban_reason",
+          "type": "TEXT",
+          "nullable": true
+        },
+        {
+          "name": "ban_expires",
+          "type": "INTEGER",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "user_email_unique",
+          "def": "CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`)",
+          "table": "user",
+          "columns": ["email"]
+        },
+        {
+          "name": "sqlite_autoindex_user_1",
+          "def": "PRIMARY KEY (id)",
+          "table": "user",
+          "columns": ["id"]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "id",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "user",
+          "columns": ["id"]
+        },
+        {
+          "name": "sqlite_autoindex_user_1",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "user",
+          "columns": ["id"]
+        }
+      ],
+      "def": "CREATE TABLE `user` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`name` text NOT NULL,\n\t`email` text NOT NULL,\n\t`email_verified` integer DEFAULT false NOT NULL,\n\t`image` text,\n\t`created_at` integer DEFAULT (cast(unixepoch('subsecond') * 1000 as integer)) NOT NULL,\n\t`updated_at` integer DEFAULT (cast(unixepoch('subsecond') * 1000 as integer)) NOT NULL,\n\t`role` text,\n\t`banned` integer DEFAULT false,\n\t`ban_reason` text,\n\t`ban_expires` integer\n)"
+    },
+    {
+      "name": "verification",
+      "type": "table",
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "identifier",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "expires_at",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "cast(unixepoch('subsecond') * 1000 as integer)"
+        },
+        {
+          "name": "updated_at",
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "cast(unixepoch('subsecond') * 1000 as integer)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "verification_identifier_idx",
+          "def": "CREATE INDEX `verification_identifier_idx` ON `verification` (`identifier`)",
+          "table": "verification",
+          "columns": ["identifier"]
+        },
+        {
+          "name": "sqlite_autoindex_verification_1",
+          "def": "PRIMARY KEY (id)",
+          "table": "verification",
+          "columns": ["id"]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "id",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "verification",
+          "columns": ["id"]
+        },
+        {
+          "name": "sqlite_autoindex_verification_1",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "verification",
+          "columns": ["id"]
+        }
+      ],
+      "def": "CREATE TABLE `verification` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`identifier` text NOT NULL,\n\t`value` text NOT NULL,\n\t`expires_at` integer NOT NULL,\n\t`created_at` integer DEFAULT (cast(unixepoch('subsecond') * 1000 as integer)) NOT NULL,\n\t`updated_at` integer DEFAULT (cast(unixepoch('subsecond') * 1000 as integer)) NOT NULL\n)"
+    }
+  ],
+  "relations": [
+    {
+      "table": "account",
+      "columns": ["user_id"],
+      "cardinality": "zero_or_more",
+      "parent_table": "user",
+      "parent_columns": ["id"],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE NO ACTION ON DELETE CASCADE MATCH NONE"
+    },
+    {
+      "table": "session",
+      "columns": ["user_id"],
+      "cardinality": "zero_or_more",
+      "parent_table": "user",
+      "parent_columns": ["id"],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (user_id) REFERENCES user (id) ON UPDATE NO ACTION ON DELETE CASCADE MATCH NONE"
+    }
+  ],
+  "driver": {
+    "name": "sqlite",
+    "database_version": "3.50.4"
+  }
+}

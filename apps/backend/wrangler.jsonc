@@ -1,38 +1,72 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "backend",
+  "name": "cf-sample-app-backend",
   "main": "src/index.ts",
-  "compatibility_date": "2025-11-30",
-  // "compatibility_flags": [
-  //   "nodejs_compat"
-  // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MY_BUCKET",
-  //     "bucket_name": "my-bucket"
-  //   }
-  // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
-  // "ai": {
-  //   "binding": "AI"
-  // },
-  // "observability": {
-  //   "enabled": true,
-  //   "head_sampling_rate": 1
-  // }
+  "compatibility_date": "2025-11-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "db-local",
+      "database_id": "<UUID>",
+      "migrations_dir": "drizzle",
+    },
+  ],
+  "vars": {
+    "BACKEND_URL": "http://localhost:8787",
+    "FRONTEND_URL": "http://localhost:3000",
+    "crossSubDomainCookies": "localhost",
+    "BETTER_AUTH_SECRET": "env_secret_for_local_dev",
+    "SECRET_KEY": "env_secret_for_local_dev",
+  },
+  "env": {
+    "preview": {
+      "name": "cf-sample-app-backend-preview",
+      "vars": {
+        "BACKEND_URL": "https://cf-sample-app-backend-preview.xeiculy-account.workers.dev",
+        "FRONTEND_URL": "https://cf-sample-app-frontend-preview.xeiculy-account.workers.dev",
+        "crossSubDomainCookies": ".xeiculy-account.workers.dev",
+      },
+      "observability": {
+        "logs": {
+          "enabled": true,
+          "head_sampling_rate": 1,
+          "invocation_logs": true,
+          "persist": true,
+        },
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "db-preview",
+          "database_id": "a481c1b4-7982-47e8-a4a9-c9f74be1283f",
+          "migrations_dir": "drizzle",
+        },
+      ],
+    },
+    "production": {
+      "name": "cf-sample-app-backend-production",
+      "vars": {
+        "BACKEND_URL": "https://cf-sample-app-backend-production.xeiculy-account.workers.dev",
+        "FRONTEND_URL": "https://cf-sample-app-frontend-production.xeiculy-account.workers.dev",
+        "crossSubDomainCookies": ".xeiculy-account.workers.dev",
+      },
+      "observability": {
+        "logs": {
+          "enabled": false,
+          "head_sampling_rate": 1,
+          "invocation_logs": true,
+          "persist": true,
+        },
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "db-production",
+          "database_id": "30210211-52b5-4f14-857a-853aa9648298",
+          "migrations_dir": "drizzle",
+        },
+      ],
+    },
+  },
 }
