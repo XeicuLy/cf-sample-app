@@ -1,0 +1,33 @@
+name: Deploy Web (Production)
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
+      - name: Setup Node.js and install dependencies
+        uses: ./.github/actions/node-install
+
+  build:
+    needs: setup
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+      - uses: ./.github/actions/node-install
+
+      - name: Deploy Production
+        run: cd apps/frontend && pnpm run deploy:production
+        env:
+          VITE_BACKEND_URL: 'https://cf-sample-app-backend-production.xeiculy-account.workers.dev'
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

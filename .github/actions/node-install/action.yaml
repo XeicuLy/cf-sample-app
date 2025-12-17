@@ -25,6 +25,12 @@ runs:
         node-version: ${{ inputs.node-version }}
         cache: pnpm
 
+    - name: Show versions
+      shell: bash
+      run: |
+        node -v
+        pnpm -v
+
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
