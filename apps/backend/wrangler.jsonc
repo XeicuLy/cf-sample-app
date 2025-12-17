@@ -26,8 +26,6 @@
         "BACKEND_URL": "https://cf-sample-app-backend-preview.xeiculy-account.workers.dev",
         "FRONTEND_URL": "https://cf-sample-app-frontend-preview.xeiculy-account.workers.dev",
         "crossSubDomainCookies": ".xeiculy-account.workers.dev",
-        "BETTER_AUTH_SECRET": "env_secret_for_local_dev",
-        "SECRET_KEY": "env_secret_for_local_dev",
       },
       "observability": {
         "logs": {
@@ -52,8 +50,6 @@
         "BACKEND_URL": "https://cf-sample-app-backend-production.xeiculy-account.workers.dev",
         "FRONTEND_URL": "https://cf-sample-app-frontend-production.xeiculy-account.workers.dev",
         "crossSubDomainCookies": ".xeiculy-account.workers.dev",
-        "BETTER_AUTH_SECRET": "env_secret_for_local_dev",
-        "SECRET_KEY": "env_secret_for_local_dev",
       },
       "observability": {
         "logs": {
